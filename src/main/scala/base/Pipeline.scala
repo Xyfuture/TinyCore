@@ -1,4 +1,4 @@
-import spinal.core._
+package base
 
 
 class Pipeline {
