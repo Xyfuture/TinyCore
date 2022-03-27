@@ -4,6 +4,9 @@ import spinal.core._
 
 object ISA {
 
+  def INSTRUCTION_WORD_LEN = 32
+  def REGISTER_ADDR_LEN = 5
+
   // instruction range
   def opcodeRange = 6 downto 0
   def rdRange = 11 downto 7
@@ -20,7 +23,7 @@ object ISA {
 
     def s_imm = B((48 downto 0) -> s(14)) ## s
     def c_imm = B((53 downto 0) -> c(9)) ## c
-    def v_imm = B((53 downto 0) -> v(9)) ## v
+    def v_imm = B((53 downto 0) -> 0) ## v
     def m_imm = B((56 downto 0) -> m(6)) ## m
   }
 
@@ -56,7 +59,7 @@ object ISA {
     def VVGT = B"10010"
     def VVEQ = B"10011"
     def VVAND = B"10100"
-    def VVOR = B"100101"
+    def VVOR = B"10101"
 
     def VVSLL = B"10101"
     def VVSRA = B"00010"
