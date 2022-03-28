@@ -46,6 +46,9 @@ object ISA {
 
     def SEND = B"011_0001"
     def RECV = B"011_0010"
+    def LD = B"011_0011"
+    def ST = B"011_0100"
+    def STI = B"011_0101"
 
     def BIND = B"100_0001"
     def UNBIND = B"100_0010"

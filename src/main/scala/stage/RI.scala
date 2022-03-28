@@ -122,6 +122,6 @@ class RI extends Component {
 
   def bitwidthSet():Unit = {
     bitWidth := 0
-    when(inSignal.bitwidthGen){ bitWidth := inSignal.instruction(bitWidthRange)}
+    when(inSignal.bitwidthGen){ bitWidth := inSignal.instruction(bitWidthRange).asUInt}
   }
 }

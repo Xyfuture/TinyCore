@@ -4,7 +4,7 @@ import spinal.core._
 object ARCH {
   def VEU_OP_LEN = 6
   def SEU_OP_LEN = 4
-  def DTU_OP_LEN = 2
+  def DTU_OP_LEN = 4
   def MEU_OP_LEN = 4
 
   object VEU_OPCODE {
@@ -40,9 +40,12 @@ object ARCH {
   }
 
   object DTU_OPCODE {
-    def NONE = U"00"
-    def SEND = U"01"
-    def RECV = U"10"
+    def NONE = U"0000"
+    def SEND = U"0001"
+    def RECV = U"0010"
+    def LD = U"0011"
+    def ST = U"0100"
+    def STI = U"0101"
   }
 
   object MEU_OPCODE {
@@ -82,6 +85,7 @@ object ARCH {
     def RD_RS1 = U"010"
     def RS1_RS2 = U"011"
     def RD = U"100"
+    def RS1 = U"101"
   }
 
   object REG_READ_STRING{
@@ -91,5 +95,6 @@ object ARCH {
     def RD_RS1 = "010"
     def RS1_RS2 = "011"
     def RD = "100"
+    def RS1 = "101"
   }
 }
