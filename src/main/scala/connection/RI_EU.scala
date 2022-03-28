@@ -75,3 +75,28 @@ class RI_DTU extends Bundle{
   }
 }
 
+// 简化版
+class RI_EU extends Bundle {
+  val euDispatch = UInt(EU_DISPATCH_LEN bits)
+
+  val ALUop = UInt(VEU_OP_LEN bits)
+  val rdAddr = UInt(REGISTER_ADDR_LEN bits)
+  val rdValue = UInt(REGISTER_BITWIDTH bits)
+  val rs1Value = UInt(REGISTER_BITWIDTH bits)
+  val rs2Value = UInt(REGISTER_BITWIDTH bits)
+  val imm = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+
+
+  def initOutput = {
+    euDispatch := EU_DISPATCH.NONE
+    ALUop := U(0,MEU_OP_LEN bits)
+    rdAddr := U(0,REGISTER_ADDR_LEN bits)
+    rdValue := U(0,REGISTER_BITWIDTH bits)
+    rs1Value := U(0,REGISTER_BITWIDTH bits)
+    rs2Value := U(0,REGISTER_BITWIDTH bits)
+    imm := U(0,REGISTER_BITWIDTH bits)
+    bitWidth := U(0,REGISTER_BITWIDTH bits)
+  }
+}
+
