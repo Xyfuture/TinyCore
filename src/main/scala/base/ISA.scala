@@ -5,7 +5,9 @@ import spinal.core._
 object ISA {
 
   def INSTRUCTION_WORD_LEN = 32
+  def REGISTER_CNT = 32
   def REGISTER_ADDR_LEN = 5
+  def REGISTER_BITWIDTH = 64
 
   // instruction range
   def opcodeRange = 6 downto 0
