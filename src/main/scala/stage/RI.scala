@@ -58,17 +58,37 @@ class RI extends Component {
     is(EU_DISPATCH.SEU){
       io.SEUout.valid := True
 
+      SEUout.ALUop := inSignal.sALUop
+      SEUout.rdAddr := inSignal.rdAddr
+      SEUout.op1Value := rs1Value
+      SEUout.op2Value :=  rs2Value
+      when(inSignal.immType =/= IMM_TYPE.NONE){
+        SEUout.op2Value := imm
+      }
 
     }
     is(EU_DISPATCH.MEU){
+      io.MEUout.valid := True
+
+      MEUout.ALUop := inSignal.mALUop
+      MEUout.rdValue := rdValue
+      MEUout.rs1Value := rs1Value
+      MEUout.rs2Value := rs2Value
+      MEUout.imm := imm
+      MEUout.bitWidth := bitWidth
+
 
     }
     is(EU_DISPATCH.DTU){
+      io.DTUout.valid := True
 
+      DTUout.ALUop := inSignal.dALUop
+      DTUout.rdAddr := inSignal.rdAddr
+      DTUout.rs1Value := rs1Value
+      DTUout.rs2Value := rs2Value
+      DTUout.imm := imm
     }
   }
-
-
 
 
 
@@ -81,9 +101,9 @@ class RI extends Component {
 
   def regSet():Unit = {
     // read from register file
-    io.regOutput.payload.rdAddr := inSignal.rdAddr
-    io.regOutput.payload.rs1Addr := inSignal.rs1Addr
-    io.regOutput.payload.rs2Addr := inSignal.rs2Addr
+    io.regOutput.payload.rdAddr := 0
+    io.regOutput.payload.rs1Addr := 0
+    io.regOutput.payload.rs2Addr := 0
 
 
     rdValue := 0
@@ -91,20 +111,37 @@ class RI extends Component {
     rs2Value := 0
     switch(inSignal.regRead){
       is(REG_READ.RD_RS1_RS2){
+        io.regOutput.payload.rdAddr := inSignal.rdAddr
+        io.regOutput.payload.rs1Addr := inSignal.rs1Addr
+        io.regOutput.payload.rs2Addr := inSignal.rs2Addr
+
         rdValue := io.regInput.payload.rdValue
         rs1Value := io.regInput.payload.rs1Value
         rs2Value := io.regInput.payload.rs2Value
       }
       is(REG_READ.RD_RS1){
+        io.regOutput.payload.rdAddr := inSignal.rdAddr
+        io.regOutput.payload.rs1Addr := inSignal.rs1Addr
+
         rdValue := io.regInput.payload.rdValue
         rs1Value := io.regInput.payload.rs1Value
       }
       is(REG_READ.RS1_RS2){
+        io.regOutput.payload.rs1Addr := inSignal.rs1Addr
+        io.regOutput.payload.rs2Addr := inSignal.rs2Addr
+
         rs1Value := io.regInput.payload.rs1Value
         rs2Value := io.regInput.payload.rs2Value
       }
       is (REG_READ.RD){
+        io.regOutput.payload.rdAddr := inSignal.rdAddr
+
         rdValue := io.regInput.payload.rdValue
+      }
+      is(REG_READ.RS1){
+        io.regOutput.payload.rs1Addr := inSignal.rs1Addr
+
+        rs1Value := io.regInput.payload.rs1Value
       }
     }
   }

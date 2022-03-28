@@ -61,12 +61,14 @@ class RI_MEU extends Bundle{
 
 class RI_DTU extends Bundle{
   val ALUop = UInt(DTU_OP_LEN bits)
+  val rdAddr = UInt(REGISTER_ADDR_LEN bits)
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
 
   def initOutput = {
     ALUop := U(0,MEU_OP_LEN bits)
+    rdAddr := U(0,REGISTER_ADDR_LEN bits)
     rs1Value := U(0,REGISTER_BITWIDTH bits)
     rs2Value := U(0,REGISTER_BITWIDTH bits)
     imm := U(0,REGISTER_BITWIDTH bits)

@@ -18,6 +18,6 @@ class ID_RI extends Bundle{
   val euDispatch = Bits(EU_DISPATCH_LEN bits)
   val immType = UInt(IMM_TYPE_LEN bits)
   val bitwidthGen = Bool()
-  val regRead = UInt(REG_READ_NUM_LEN bits)
+  val regRead = UInt(REG_READ_NUM_LEN bits)  // 告诉下一阶段需要读那些寄存器的值
 
 }

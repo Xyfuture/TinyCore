@@ -21,7 +21,7 @@ class ID extends Component {
 
   // 初始化
   io.output.payload.instruction := inst
-  initOutput
+  initOutput()
   io.output.valid := False
   io.ctrl.toCtrl.valid := False
 
@@ -98,6 +98,10 @@ class ID extends Component {
     if (regRead != REG_READ_STRING.NONE) {
       io.output.payload.regRead := U(regRead)
     }
+    // 所有地址都会送到下一层，但是读取那些是由regRead决定的
+    io.output.payload.rs1Addr := inst(rs1Range).asUInt
+    io.output.payload.rs2Addr := inst(rs2Range).asUInt
+    io.output.payload.rdAddr := inst(rdRange).asUInt
     //    switch(regRead) {
 //      is (REG_READ.NONE) {}
 //      is (REG_READ.RD_RS1_RS2) {
@@ -117,22 +121,22 @@ class ID extends Component {
 //        io.output.payload.rdAddr := inst(rdRange).asUInt
 //      }
 //    }
-    if (regRead == REG_READ_STRING.RD_RS1_RS2) {
-      io.output.payload.rs1Addr := inst(rs1Range).asUInt
-      io.output.payload.rs2Addr := inst(rs2Range).asUInt
-      io.output.payload.rdAddr := inst(rdRange).asUInt
-    }
-    else if (regRead == REG_READ_STRING.RD_RS1){
-      io.output.payload.rdAddr := inst(rdRange).asUInt
-      io.output.payload.rs1Addr := inst(rs1Range).asUInt
-    }
-    else if (regRead == REG_READ_STRING.RS1_RS2){
-      io.output.payload.rs1Addr := inst(rs1Range).asUInt
-      io.output.payload.rs2Addr := inst(rs2Range).asUInt
-    }
-    else if (regRead == REG_READ_STRING.RD){
-      io.output.payload.rdAddr := inst(rdRange).asUInt
-    }
+//    if (regRead == REG_READ_STRING.RD_RS1_RS2) {
+//      io.output.payload.rs1Addr := inst(rs1Range).asUInt
+//      io.output.payload.rs2Addr := inst(rs2Range).asUInt
+//      io.output.payload.rdAddr := inst(rdRange).asUInt
+//    }
+//    else if (regRead == REG_READ_STRING.RD_RS1){
+//      io.output.payload.rdAddr := inst(rdRange).asUInt
+//      io.output.payload.rs1Addr := inst(rs1Range).asUInt
+//    }
+//    else if (regRead == REG_READ_STRING.RS1_RS2){
+//      io.output.payload.rs1Addr := inst(rs1Range).asUInt
+//      io.output.payload.rs2Addr := inst(rs2Range).asUInt
+//    }
+//    else if (regRead == REG_READ_STRING.RD){
+//      io.output.payload.rdAddr := inst(rdRange).asUInt
+//    }
 
   }
 
@@ -167,7 +171,7 @@ class ID extends Component {
     io.output.payload.bitwidthGen := bitWidth
   }
 
-  def initOutput:Unit = {
+  def initOutput():Unit = {
     io.output.payload.regRead := REG_READ.NONE
     io.output.payload.immType := IMM_TYPE.NONE
     io.output.payload.euDispatch := EU_DISPATCH.NONE
