@@ -3,6 +3,7 @@ package stage
 import spinal.core._
 import spinal.lib._
 import connection.{ CtrlSignalMaster, IF_ID}
+import base.ISA._
 
 import scala.language.postfixOps
 
@@ -18,7 +19,7 @@ class IF extends Component{
     pc_reg := pc_reg + 1
   }
 
-  val inst_buffer = Mem(Bits(64 bits), Array[Bits]())
+  val inst_buffer = Mem(Bits(INSTRUCTION_WORD_LEN bits), Array[Bits]())
 
   io.output.payload.instruction := inst_buffer.readSync(address = pc_reg)
   io.output.valid := io.ctrl.no_stall
