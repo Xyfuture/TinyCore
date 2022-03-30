@@ -46,6 +46,7 @@ object ARCH {
     def LD = U"0011"
     def ST = U"0100"
     def STI = U"0101"
+    def LDI = U"0110"
   }
 
   object MEU_OPCODE {
@@ -77,6 +78,7 @@ object ARCH {
     def S_TYPE = U"0010"
     def C_TYPE = U"0011"
     def M_TYPE = U"0100"
+    def I_TYPE = U"0101" //LDI use it longest
   }
 
   object REG_READ{

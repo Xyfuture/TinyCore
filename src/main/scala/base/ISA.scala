@@ -22,11 +22,13 @@ object ISA {
     def c = instruction(31 downto 22)
     def v = instruction(31 downto 22)
     def m = instruction(28 downto 22)
+    def i = instruction(31 downto 12)
 
     def s_imm = B((48 downto 0) -> s(14)) ## s
     def c_imm = B((53 downto 0) -> c(9)) ## c
     def v_imm = B((53 downto 0) -> 0) ## v
     def m_imm = B((56 downto 0) -> m(6)) ## m
+    def i_imm = B((43 downto 0)-> i(19)) ## i
   }
 
   object OPCODE {
@@ -49,6 +51,7 @@ object ISA {
     def LD = B"011_0011"
     def ST = B"011_0100"
     def STI = B"011_0101"
+    def LDI = B"011_0110"
 
     def BIND = B"100_0001"
     def UNBIND = B"100_0010"

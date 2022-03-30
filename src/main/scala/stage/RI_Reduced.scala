@@ -104,6 +104,7 @@ class RI_Reduced extends Component {
       is(IMM_TYPE.S_TYPE) {imm := tmpImm.s_imm.asUInt}
       is(IMM_TYPE.M_TYPE) {imm := tmpImm.m_imm.asUInt}
       is(IMM_TYPE.C_TYPE) {imm := tmpImm.c_imm.asUInt}
+      is(IMM_TYPE.I_TYPE) {imm := tmpImm.i_imm.asUInt}
     }
   }
 
