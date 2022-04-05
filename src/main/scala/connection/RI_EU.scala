@@ -11,7 +11,7 @@ class RI_VEU extends Bundle{
   val rdValue = UInt(REGISTER_BITWIDTH bits)
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
-  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(BITWIDTH_FIELD_LEN bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
 
   def initOutput = {
@@ -19,7 +19,7 @@ class RI_VEU extends Bundle{
     rdValue := U(0,REGISTER_BITWIDTH bits)
     rs1Value := U(0,REGISTER_BITWIDTH bits)
     rs2Value := U(0,REGISTER_BITWIDTH bits)
-    bitWidth := U(0,REGISTER_BITWIDTH bits)
+    bitWidth := U(0,BITWIDTH_FIELD_LEN bits)
     imm := U(0,REGISTER_BITWIDTH bits)
   }
 
@@ -45,7 +45,7 @@ class RI_MEU extends Bundle{
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
-  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(BITWIDTH_FIELD_LEN bits)
 
 
   def initOutput = {
@@ -54,7 +54,7 @@ class RI_MEU extends Bundle{
     rs1Value := U(0,REGISTER_BITWIDTH bits)
     rs2Value := U(0,REGISTER_BITWIDTH bits)
     imm := U(0,REGISTER_BITWIDTH bits)
-    bitWidth := U(0,REGISTER_BITWIDTH bits)
+    bitWidth := U(0,BITWIDTH_FIELD_LEN bits)
 
   }
 }
@@ -85,18 +85,18 @@ class RI_EU extends Bundle {
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
-  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(BITWIDTH_FIELD_LEN bits)
 
 
   def initOutput = {
-    euDispatch := EU_DISPATCH.NONE
-    ALUop := U(0,MEU_OP_LEN bits)
+    euDispatch := EU_DISPATCH.NONE.asUInt
+    ALUop := U(0,VEU_OP_LEN bits)
     rdAddr := U(0,REGISTER_ADDR_LEN bits)
     rdValue := U(0,REGISTER_BITWIDTH bits)
     rs1Value := U(0,REGISTER_BITWIDTH bits)
     rs2Value := U(0,REGISTER_BITWIDTH bits)
     imm := U(0,REGISTER_BITWIDTH bits)
-    bitWidth := U(0,REGISTER_BITWIDTH bits)
+    bitWidth := U(0,BITWIDTH_FIELD_LEN bits)
   }
 }
 

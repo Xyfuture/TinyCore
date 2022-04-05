@@ -1,7 +1,7 @@
 package base
 
 import spinal.core._
-import stage.ID
+import stage.{ID, IF, REG, RI, RI_Reduced, SEU}
 
 class TopLevel extends Component {
   val bitWidth = 7 bits
@@ -15,6 +15,6 @@ class TopLevel extends Component {
 
 object TopLevelVerilog{
   def main(args:Array[String]): Unit ={
-    SpinalVerilog(new ID)
+    SpinalVerilog(new REG)
   }
 }

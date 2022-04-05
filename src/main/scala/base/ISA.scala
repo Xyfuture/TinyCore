@@ -8,6 +8,7 @@ object ISA {
   def REGISTER_CNT = 32
   def REGISTER_ADDR_LEN = 5
   def REGISTER_BITWIDTH = 64
+  def BITWIDTH_FIELD_LEN = 3
 
   // instruction range
   def opcodeRange = 6 downto 0
@@ -26,7 +27,7 @@ object ISA {
 
     def s_imm = B((48 downto 0) -> s(14)) ## s
     def c_imm = B((53 downto 0) -> c(9)) ## c
-    def v_imm = B((53 downto 0) -> 0) ## v
+    def v_imm = B((53 downto 0) -> False) ## v
     def m_imm = B((56 downto 0) -> m(6)) ## m
     def i_imm = B((43 downto 0)-> i(19)) ## i
   }

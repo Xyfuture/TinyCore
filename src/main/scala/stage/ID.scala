@@ -12,7 +12,7 @@ class ID extends Component {
   val io = new Bundle{
     val input = slave Flow new IF_ID
     val output = master Flow new ID_RI
-    val ctrl = CtrlSignalMaster()
+//    val ctrl = CtrlSignalMaster()
   }
 
   val inst = io.input.payload.instruction
@@ -23,7 +23,7 @@ class ID extends Component {
   io.output.payload.instruction := inst
   initOutput()
   io.output.valid := False
-  io.ctrl.toCtrl.valid := False
+//  io.ctrl.toCtrl.valid := False
 
   switch(opcode){
     is(OPCODE.VVSET){VEUSetOp(VEU_OPCODE.VVSET,REG_READ_STRING.RD,bitWidth = True)}

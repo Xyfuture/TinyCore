@@ -12,7 +12,7 @@ import base.ARCH._
 class RI extends Component {
   val io = new Bundle{
     val input = slave Flow new ID_RI
-    val ctrl = CtrlSignalMaster()
+//    val ctrl = CtrlSignalMaster()
 
     val VEUout = master Flow new RI_VEU
     val SEUout = master Flow new RI_SEU
@@ -34,10 +34,10 @@ class RI extends Component {
   val rdValue = UInt(REGISTER_BITWIDTH bits)
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
-  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(BITWIDTH_FIELD_LEN bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
 
-
+  io.regOutput.valid := True
   initOutput()
   regSet()
   immSet()
@@ -97,6 +97,11 @@ class RI extends Component {
     SEUout.initOutput
     MEUout.initOutput
     DTUout.initOutput
+
+    io.VEUout.valid := True
+    io.SEUout.valid := True
+    io.MEUout.valid := True
+    io.DTUout.valid := True
   }
 
   def regSet():Unit = {

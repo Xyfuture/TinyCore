@@ -11,7 +11,7 @@ import scala.language.postfixOps
 class RI_Reduced extends Component {
   val io = new Bundle{
     val input = slave Flow new ID_RI
-    val ctrl = CtrlSignalMaster()
+//    val ctrl = CtrlSignalMaster()
 
     val output = master Flow new RI_EU
 
@@ -20,27 +20,33 @@ class RI_Reduced extends Component {
     // bypass part
   }
 
+  io.output.valid := True
+  io.regOutput.valid := True
+
   val euDispatch = io.input.payload.euDispatch
   val inSignal = io.input.payload
 
   val rdValue = UInt(REGISTER_BITWIDTH bits)
   val rs1Value = UInt(REGISTER_BITWIDTH bits)
   val rs2Value = UInt(REGISTER_BITWIDTH bits)
-  val bitWidth = UInt(REGISTER_BITWIDTH bits)
+  val bitWidth = UInt(BITWIDTH_FIELD_LEN bits)
   val imm = UInt(REGISTER_BITWIDTH bits)
+  val ALUop = UInt(VEU_OP_LEN bits)
 
-  io.output.payload.initOutput
+//  io.output.payload.initOutput
   immSet()
   bitwidthSet()
   regSet()
+  aluOpSet()
 
-  io.output.payload.euDispatch := euDispatch
+  io.output.payload.euDispatch := euDispatch.asUInt
   io.output.payload.rdAddr := io.input.payload.rdAddr
   io.output.payload.rdValue := rdValue
   io.output.payload.rs1Value := rs1Value
   io.output.payload.rs2Value := rs2Value
   io.output.payload.bitWidth := bitWidth
   io.output.payload.imm := imm
+  io.output.payload.ALUop := ALUop
 
   when(euDispatch === EU_DISPATCH.SEU){
     when(io.input.payload.immType =/= IMM_TYPE.NONE){
@@ -111,6 +117,16 @@ class RI_Reduced extends Component {
   def bitwidthSet():Unit = {
     bitWidth := 0
     when(inSignal.bitwidthGen){ bitWidth := inSignal.instruction(bitWidthRange).asUInt}
+  }
+
+  def aluOpSet():Unit = {
+    ALUop := 0
+    switch(euDispatch){
+      is (EU_DISPATCH.VEU) {ALUop := inSignal.vALUop}
+      is (EU_DISPATCH.MEU) {ALUop := inSignal.mALUop.resized}
+      is (EU_DISPATCH.SEU) {ALUop := inSignal.sALUop.resized}
+      is (EU_DISPATCH.DTU) {ALUop := inSignal.dALUop.resized}
+    }
   }
 
 }

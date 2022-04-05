@@ -13,6 +13,7 @@ class REG extends Component {
     val fromRI = slave Flow new RI_TO_REG
     val toRI = master Flow new REG_TO_RI
   }
+  io.toRI.valid := True
 
   val regFile = Mem(Bits(REGISTER_BITWIDTH bits),31)
 
