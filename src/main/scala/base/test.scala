@@ -15,6 +15,6 @@ class TopLevel extends Component {
 
 object TopLevelVerilog{
   def main(args:Array[String]): Unit ={
-    SpinalVerilog(new REG)
+    SpinalVerilog(new IF)
   }
 }

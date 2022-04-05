@@ -19,8 +19,8 @@ class IF extends Component{
   pc_reg := pc_reg + 1
 
 
-  val inst_buffer = Mem(Bits(INSTRUCTION_WORD_LEN bits), Array[Bits]( B(0,32 bits)))
+  val inst_buffer = Mem(Bits(INSTRUCTION_WORD_LEN bits), Array[Bits]( B(0,32 bits),B(1,32 bits),B(0,32 bits),B(1,32 bits)))
 
-  io.output.payload.instruction := inst_buffer.readSync(address = pc_reg)
+  io.output.payload.instruction := inst_buffer.readSync(address = pc_reg(1 downto 0))
   io.output.valid := True
 }
