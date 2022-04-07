@@ -13,8 +13,39 @@ class TopLevel extends Component {
 
 }
 
+//class Top extends Component {
+//  val ifStage = new IF()
+//  val idStage = new ID()
+//
+//  ifStage.io.output >-> idStage.io.input
+//
+//}
+
+class Top extends Component {
+  val ifStage = clockDomain(new IF())
+  val idStage = clockDomain(new ID())
+  val riStage = clockDomain(new RI())
+  val regStage = clockDomain(new REG())
+  val seuStage = clockDomain(new SEU())
+
+
+
+  ifStage.io.output >-> idStage.io.input
+  idStage.io.output >-> riStage.io.input
+
+  riStage.io.SEUout >-> seuStage.io.input
+
+  riStage.io.regInput << regStage.io.toRI
+  riStage.io.regOutput >> regStage.io.fromRI
+
+  seuStage.io.output >> regStage.io.fromSEU
+
+}
+
 object TopLevelVerilog{
   def main(args:Array[String]): Unit ={
-    SpinalVerilog(new IF)
+//    SpinalVerilog(new IF("E:\\code\\TinyCore\\inst.txt")).printPruned()
+    SpinalVerilog(new Top).printPruned()
   }
+
 }

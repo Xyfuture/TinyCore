@@ -70,7 +70,7 @@ object ISA {
     def VVAND = B"10100"
     def VVOR = B"10101"
 
-    def VVSLL = B"10101"
+    def VVSLL = B"00001"
     def VVSRA = B"00010"
 
     def VRELU = B"00001"
